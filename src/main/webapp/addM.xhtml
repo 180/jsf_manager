@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="personform">
+			<h:panelGrid columns="2">
+			 <f:event listener="#{mpv.validateTextBox}" type="postValidate" />
+				<h:outputText value="#{msg.personNameLabel}" />
+				<h:inputText id="name" value="#{personBean.person.name}" 
+					validator="#{personBean.validateName}" required="#{true}"/>
+					
+				<h:outputText value="#{msg.personYobLabel}" />
+				<h:inputText id="yob" value="#{personBean.person.yob}">
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personDate}" />
+				<h:inputText id="personDate" value="#{personBean.person.date}">
+				<f:convertDateTime pattern="dd.MM.yyyy" required="#{true}" />
+				
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personZipCodeLabel}" />
+				<h:inputText id="zipCode" value="#{personBean.person.zipCode}">
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personWeightLabel}" />
+				<h:inputText id="weight" value="#{personBean.person.weight}" required="#{true}">
+					<f:validateDoubleRange minimum="1.0" maximum="300.5" />
+					
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personPeselLabel}" />
+				<h:inputText id="pesel" value="#{personBean.person.pesel}"
+					validator="#{personBean.uniquePesel}" required="#{true}">
+					<f:validator validatorId="peselValidator" />
+					
+				</h:inputText>
+					<h:commandButton value="#{msg.personFormOKButton}" action="#{personBean.addPerson}" />
+				
+			</h:panelGrid>
+			
+			
+
+		 	<h:panelGrid>
+		 		<h:messages showDetail="#{true}" showSummary="#{false}" />
+			</h:panelGrid>
+			
+			
+		
+		</h:form>
+	</ui:define>
+</ui:composition>

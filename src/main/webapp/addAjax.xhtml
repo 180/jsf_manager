@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form id="personForm">
+			<h:panelGrid columns="2">
+
+				
+				<h:outputText value="#{msg.personNameLabel}" />
+				<h:inputText id="name" value="#{personBean.person.name}" 
+					validator="#{personBean.validateName}" required="#{true}">
+					<f:ajax execute="@this" render="messages beanState" />
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personYobLabel}" />
+				<h:inputText id="yob" value="#{personBean.person.yob}">
+					<f:ajax execute="@this" render="messages beanState" />
+				</h:inputText>
+								
+				<h:outputText value="#{msg.personDate}" />
+				<h:inputText id="date" value="#{personBean.person.date}">
+					<f:convertDateTime type="date" pattern="dd.MM.yyyy" />
+					<f:ajax execute="@this" render="messages beanState" />
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personZipCodeLabel}" />
+				<h:inputText id="zipCode" value="#{personBean.person.zipCode}">
+					<f:ajax execute="@this" render="messages beanState" />
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personWeightLabel}" />
+				<h:inputText id="weight" value="#{personBean.person.weight}">
+					<f:validateDoubleRange minimum="1.5" maximum="300.5" />
+					<f:ajax execute="@this" render="messages beanState" />
+				</h:inputText>
+				
+				<h:outputText value="#{msg.personPeselLabel}" />
+				<h:inputText id="pesel" value="#{personBean.person.pesel}"
+					validator="#{personBean.uniquePesel}" required="#{true}">
+					<f:validator validatorId="peselValidator" />
+					<f:ajax execute="@this" render="messages beanState" />
+				</h:inputText>
+
+
+
+				
+
+			<h:commandButton value="#{msg.personFormOKButton}"
+				action="#{personBean.addPerson}" />
+
+			</h:panelGrid>
+
+
+			<h:panelGrid>
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+				</h:panelGrid>	
+				<h:panelGrid id="beanState" columns="2">
+				<h:outputText value="#{msg.personNameLabel}" />
+				<h:outputText id="nameOutput" value="#{personBean.person.name}" />
+
+				<h:outputText value="#{msg.personYobLabel}" />
+				<h:outputText id="yobOutput" value="#{personBean.person.yob}" />
+
+				<h:outputText value="#{msg.personDate}" />
+				<h:outputText id="dateOutput" value="#{personBean.person.date}">
+					<f:convertDateTime pattern="dd.MM.yyyy"/>
+				</h:outputText>
+				
+				<h:outputText value="#{msg.personZipCode}" />
+				<h:outputText id="zipCodeOutput" value="#{personBean.person.zipCode}" />
+				
+				<h:outputText value="#{msg.personWeightLabel}" />
+				<h:outputText id="weightOutput" value="#{personBean.person.weight}" />
+				
+				<h:outputText value="#{msg.personPeselLabel}" />
+				<h:outputText id="peselOutput" value="#{personBean.person.pesel}" />
+			
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

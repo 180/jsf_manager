@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<ui:define name="content">
+	
+    <h:form>
+      
+     <h:dataTable value="#{personBean.allPersons}" var="item">
+      <f:facet name="header">#{msg.personAllLabel}</f:facet>
+      
+      
+      
+      
+      <h:column>
+      	
+        <f:facet name="header">#{msg.personNameLabel}</f:facet>
+         <h:inputText value="#{item.name}" size="10" required="#{true}" rendered="#{not item.editable}"/>
+ 		 <h:outputText value="#{item.name}" rendered="#{item.editable}" />
+      </h:column>
+      
+      <h:column>
+        <f:facet name="header">#{msg.personYobLabel}</f:facet>
+        <h:inputText value="#{item.yob}" size="10" rendered="#{not item.editable}"/>
+        	
+        <h:outputText value="#{item.yob}" rendered="#{item.editable}" />
+      </h:column>
+      
+      <h:column>
+        <f:facet name="header">#{msg.personZipCode}</f:facet>
+        <h:inputText value="#{item.zipCode}" size="10" rendered="#{not item.editable}"/>
+        	
+        <h:outputText value="#{item.zipCode}" rendered="#{item.editable}" />
+      </h:column>
+      
+      
+       <h:column>
+        <f:facet name="header">#{msg.personWeightLabel}</f:facet>
+        <h:inputText value="#{item.weight}" size="10" rendered="#{not item.editable}">
+        	<f:validateDoubleRange minimum="1.5" maximum="300.5" />
+        </h:inputText>
+        <h:outputText value="#{item.weight}" rendered="#{item.editable}" />
+      </h:column>
+      
+    <h:column>
+        <f:facet name="header">#{msg.personPeselLabel}</f:facet>
+        <h:inputText value="#{item.pesel}" size="10" rendered="#{not item.editable}">
+        		<f:validator validatorId="peselValidator" />
+        </h:inputText>
+        <h:outputText value="#{item.pesel}" rendered="#{item.editable}" />
+      </h:column>
+      
+      <h:column>
+      	 
+        <f:facet name="header">#{msg.personDate}</f:facet>
+      	<h:inputText value="#{item.date}" size="10" rendered="#{not item.editable}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      	</h:inputText>
+        <h:outputText value="#{item.date}" rendered="#{item.editable}">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+        </h:outputText> 
+      
+       
+      </h:column>
+      
+      
+     </h:dataTable>
+     <h:panelGrid>
+		 		<h:messages showDetail="#{true}" showSummary="#{false}" />
+	</h:panelGrid>
+	
+	
+    
+     <br></br> 
+    
+     <h:commandLink value="Zapisz zmiany" action="saveAction" />
+    </h:form>
+      
+	</ui:define>
+	
+</ui:composition>
